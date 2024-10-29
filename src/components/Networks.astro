@@ -1,0 +1,64 @@
+---
+import Linkedin from "@icons/Linkedin.astro";
+import Github from "@icons/Github.astro";
+import Email from "@icons/Email.astro";
+import Twitter from "@icons/Twitter.astro";
+
+const NETWORKS = [
+  {
+    id: "linkedin",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/devcristianmorales/",
+  },
+  {
+    id: "github",
+    icon: Github,
+    href: "https://github.com/Cristian-F-M",
+  },
+  {
+    id: "email",
+    icon: Email,
+    href: "mailto:cfmorales.diaz@gmail.com",
+    text: "cfmorales.diaz@gmail.com",
+  },
+  {
+    id: "twitter",
+    icon: Twitter,
+    href: "https://x.com/Morales_M20",
+  },
+];
+---
+
+<div class="flex flex-row gap-2 mt-2">
+  {
+    NETWORKS.map(({ href, id, icon: Icon }) => (
+      <a
+        href={href}
+        id={id}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="border p-1 rounded-md hover:bg-gray-200/50"
+      >
+        <Icon class="size-5 text-gray-800" />
+      </a>
+    ))
+  }
+  <span class="email text-sm text-gray-700"
+    >• {NETWORKS.find((n) => n.id === "email")?.text}</span
+  >
+</div>
+
+<style>
+  .email {
+    display: none;
+  }
+
+  @media print {
+    a {
+      display: none;
+    }
+    .email {
+      display: block;
+    }
+  }
+</style>

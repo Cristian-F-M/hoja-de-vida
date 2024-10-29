@@ -1,0 +1,54 @@
+---
+import Section from "./Section.astro";
+import DeviceCog from "@icons/DeviceCog.astro";
+import { SKILLS } from "@constants/constants.js";
+import Badge from "@components/Badge.astro";
+import type { Skill } from "types/Types";
+import Question from "@icons/Question.astro";
+---
+
+<Section>
+  <div class="flex flex-row items-center justify-between relative mb-2">
+    <h2 class="text-2xl inline-flex mb-2 gap-2 items-center -ml-[6px]">
+      <span>
+        <DeviceCog />
+      </span>
+      Habilidades
+    </h2>
+  </div>
+  {
+    Object.entries(SKILLS).map(([key, skills]) => {
+      if (skills.length === 0) return;
+
+      return (
+        <div class="skill-title mb-10">
+          <h5 class="text-lg mb-1 flex flex-row gap-3 items-center">
+            <span class="no-print inline-block size-2 bg-gray-800 rounded-full" />
+            {key}
+          </h5>
+          <div class="inline-flex gap-3 flex-wrap">
+            {skills.map((skill: Skill, index: number) => {
+              return (
+                <Badge data={skill} />
+                <span class="sklls-separator hidden">{index !== skills.length - 1 && "|"}</span>
+              )
+            })}
+          </div>
+        </div>
+      );
+    })
+  }
+</Section>
+
+<style>
+  @media print {
+
+    .sklls-separator {
+      display: inline;
+    }
+
+    .skill-title {
+      margin-bottom: 30px !important;
+    }
+  }
+</style>
