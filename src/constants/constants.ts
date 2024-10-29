@@ -264,4 +264,21 @@ export const PROJECTS: Project[] = [
       },
     ],
   },
+  {
+    id: "hoja-de-vida",
+    title: "Hoja de vida",
+    description: "Hoja de vida personal, desarrollada con Astro",
+    github: "https://github.com/Cristian-F-M/hoja-de-vida",
+    url: "https://hoja-de-vida-theta-nine.vercel.app/",
+    skills: [
+      {
+        name: "Astro",
+        icon: AstroI,
+      },
+      {
+        name: "Tailwindcss",
+        icon: Tailwindcss,
+      },
+    ],
+  },
 ];
