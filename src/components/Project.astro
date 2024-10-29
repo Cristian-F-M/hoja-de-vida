@@ -1,0 +1,274 @@
+---
+import type { Project } from "types/Types";
+import Badge from "./Badge.astro";
+import Github from "@icons/Github.astro";
+import Cog from "@icons/Cog.astro";
+
+const { project } = Astro.props;
+const { id, description, skills, title, github, url, working } =
+  project as Project;
+---
+
+<article
+  class={`flex flex-col justify-between bg-gray-100 rounded-lg p-3 border border-gray-300 h-68 max-w-[340px] min-h-[200px] max-h-[200px] overflow-y-hidden overflow-x-visible`}
+>
+  <div class="project-content flex flex-col">
+    <header class="flex justify-between">
+      <h4 class="text-base mb-2 flex flex-row gap-1 items-center">
+        <a
+          href={url !== "" ? url : null}
+          target="_blank"
+          rel="noopener noreferer"
+          class={`${url ? "underline cursor-pointer" : ""}`}>{title}</a
+        >
+        {url && <span class="text-green-500">•</span>}
+        {
+          working && (
+            <span class="cog-working text-green-700">
+              <Cog class="size-4" />
+            </span>
+          )
+        }
+      </h4>
+      {
+        github && (
+          <a
+            class="no-print hover:bg-gray-300 h-fit p-1 rounded-full"
+            href={github}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <Github class="size-4 " />
+          </a>
+        )
+      }
+    </header>
+    <div
+      class="main-content block text-[13px] text-gray-500 max-h-[80px] overflow-y-hidden overflow-x-visible"
+    >
+      <p class={``}>
+        {description}
+      </p>
+      {
+        skills && (
+          <div class="project-skills no-print mt-4 flex flex-row gap-1 flex-wrap overflow-hidden">
+            {skills.map((skill) => {
+              return (
+                <div class="relative cursor-pointer group" title={skill.name}>
+                  <Badge
+                    data={skill}
+                    onlyIcon={true}
+                    iconClass="!size-5"
+                    class="!p-2 group-hover:bg-gray-400/50"
+                  />
+                  <span class="info-badge absolute opacity-0 -z-[1] bg-gray-300 p-2 rounded-lg top-0 -translate-y-[110%] left-1/2 -translate-x-1/2 text-nowrap">
+                    {skill.name}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )
+      }
+    </div>
+  </div>
+  <a
+    class="view-more no-print self-end text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-200 mt-2 px-2 py-1 rounded-lg"
+    data-dialog-show={id}
+    data-deployed={false}
+    href="#">Más...</a
+  >
+</article>
+
+<style>
+  .project-skills .info-badge {
+    transition: all 0.2s ease-in-out allow-discrete;
+    display: none;
+    scale: 0;
+    opacity: 0;
+
+    &.show-info-badge {
+      scale: 1;
+      opacity: 1;
+      display: block;
+
+      @starting-style {
+        scale: 0;
+        opacity: 0;
+      }
+    }
+  }
+</style>
+
+<style is:global>
+  .project-skills > div {
+    opacity: 0;
+    scale: 0;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .project-skills > div.show-badge {
+    scale: 1;
+    opacity: 1;
+  }
+</style>
+
+<style>
+  p,
+  article,
+  .main-content {
+    transition: max-height 0.2s ease-in-out;
+    interpolate-size: allow-keywords;
+  }
+
+  @media print {
+    article {
+      max-height: fit-content;
+      min-height: auto;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    p,
+    .main-content {
+      overflow: hidden;
+      display: block;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      line-clamp: 3;
+    }
+  }
+
+  .skillName {
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -120%);
+
+    display: none;
+    transition:
+      all 0.2s ease-in-out,
+      display 0.2s ease-in-out allow-discrete;
+    scale: 0;
+
+    &.open {
+      display: block;
+      scale: 1;
+
+      @starting-style {
+        scale: 0;
+      }
+    }
+  }
+</style>
+
+<script>
+  const $skillsName = document.querySelectorAll(".skillName");
+  $skillsName.forEach((skill) => {
+    const parent = skill.parentElement;
+
+    if (!parent) return;
+
+    const skillBadge = parent.querySelector(".badge");
+
+    if (!skillBadge) return;
+
+    skillBadge.addEventListener("mouseenter", () => {
+      skill.classList.add("open");
+    });
+
+    skillBadge.addEventListener("mouseleave", () => {
+      skill.classList.remove("open");
+    });
+  });
+</script>
+
+<script>
+  const $viewMores = document.querySelectorAll(".view-more");
+
+  $viewMores.forEach((view) => {
+    if (!(view instanceof HTMLAnchorElement)) return;
+
+    const $article = view.closest("article");
+
+    if (!$article) return;
+
+    const $badges = $article.querySelectorAll(".project-skills > div");
+
+    const $projectContent = $article.querySelector(".project-content");
+
+    if (!$projectContent) return;
+    const $mainContent = $projectContent.querySelector(".main-content");
+    const $paragraph = $mainContent?.querySelector("p");
+
+    if (!($article instanceof HTMLElement)) return;
+    if (!($mainContent instanceof HTMLDivElement)) return;
+    if (!($paragraph instanceof HTMLParagraphElement)) return;
+
+    if ($mainContent.scrollHeight <= $mainContent.clientHeight) {
+      view.remove();
+    }
+
+    view.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      if (view.dataset.deployed === "true") {
+        view.innerText = "Más...";
+        view.dataset.deployed = "false";
+        $mainContent.style.maxHeight = "80px";
+        // $paragraph.style.maxHeight = "80px";
+        $article.style.maxHeight = "170px";
+        $badges.forEach((badge) => {
+          badge.classList.remove("show-badge");
+        });
+        return;
+      }
+
+      view.dataset.deployed = "true";
+      view.innerText = "Menos ";
+      $article.style.maxHeight = "fit-content";
+      $mainContent.style.maxHeight = "fit-content";
+      // $paragraph.style.maxHeight = "fit-content";
+      $badges.forEach((badge) => {
+        badge.classList.add("show-badge");
+      });
+    });
+  });
+</script>
+
+<script>
+  const $badges = document.querySelectorAll(
+    ".project-skills .badge"
+  ) as NodeListOf<HTMLDivElement>;
+
+  $badges.forEach((badge) => {
+    const parent = badge.parentNode;
+    if (!parent) return;
+
+    const infoBadge = parent.querySelector(".info-badge");
+    if (!infoBadge) return;
+
+    badge.addEventListener("mouseenter", () => {
+      // Agregar la clase show-info-badge
+      // infoBadge.classList.add("show-info-badge");
+    });
+
+    badge.addEventListener("mouseleave", () => {
+      // Remove la clase show-info-badge
+      // infoBadge.classList.remove("show-info-badge");
+    });
+  });
+</script>
+
+<style>
+  .cog-working {
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

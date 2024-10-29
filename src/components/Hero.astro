@@ -1,0 +1,45 @@
+---
+import NetWorks from "@components/Networks.astro";
+import Section from "@components/Section.astro";
+import WorldMap from "@icons/WorldMap.astro";
+import { Image } from "astro:assets";
+---
+
+<Section id="Hero">
+  <div class="flex flex-row items-center gap-8">
+    <div class="">
+      <h1 class="text-3xl">Cristian Morales Diaz</h1>
+      <p class="text-base font-normal text-gray-700 m-0 mt-1">
+        Trainee desarrollador de software enfocado en el desarrollo web
+      </p>
+      <span
+        class="text-sm font-normal text-gray-600 flex flex-row items-center gap-1"
+      >
+        <WorldMap class="size-4" /> Santander, Colombia 🇨🇴
+      </span>
+      <NetWorks />
+    </div>
+    <div class="image aspect-[453/605] rounded-lg overflow-hidden">
+      <Image
+        src="/foto.jpeg"
+        alt="Foto de Cristian Morales Diaz"
+        width="140"
+        height="1"
+      />
+    </div>
+  </div>
+</Section>
+
+<style>
+  .image {
+    transform: rotateZ(-15deg) translateX(10px);
+    filter: drop-shadow(-10px 10px 10px rgba(0, 0, 0, 0.3));
+  }
+
+  @media print {
+    .image {
+      filter: none;
+      transform: none;
+    }
+  }
+</style>

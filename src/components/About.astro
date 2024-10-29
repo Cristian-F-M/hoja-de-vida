@@ -1,0 +1,39 @@
+---
+import Section from "./Section.astro";
+import UserCode from "@icons/UserCode.astro";
+---
+
+<Section id="About" title="Sobre mi" icon={UserCode}>
+  <article class="flex flex-col gap-5 text-gray-800">
+    <p>
+      Me gusta <strong>adquirir</strong> nuevos conocimientos y <strong
+        >compartirlos</strong
+      > con los demás. Disfruto explorando la programación y la tecnología, y actualmente
+      soy <strong>trainee</strong> en el campo del <strong
+        >desarrollo web</strong
+      >. Mi objetivo es seguir especializándome y avanzar hacia senior en esta
+      área.
+    </p>
+
+    <p class="">
+      Participé en un evento de desarrollo web donde obtuve el <strong
+        >segundo
+      </strong> lugar. Durante este evento, desarrollé un <strong
+        >sistema de gestión</strong
+      > para una <strong>biblioteca,</strong> completando tanto el <strong 
+        >backend</strong
+      > como el <strong>frontend </strong>, así como la configuración de la <strong
+        >base de datos </strong> en un lapso de 8 horas.
+    </p>
+  </article>
+
+  <style>
+    p {
+      @apply text-pretty font-normal;
+    }
+
+    strong {
+      @apply text-[17px] font-semibold text-black inline-block;
+    }
+  </style>
+</Section>

@@ -1,0 +1,65 @@
+---
+import Section from "./Section.astro";
+import Briefcase from "@icons/Briefcase.astro";
+import type { Experience } from "types/Types";
+
+const EXPERIENCES: Experience[] = [
+  {
+    id: "WM",
+    company: "Wireless & Mobile",
+    period: {
+      start: "14/04/2024",
+      end: "17/10/2024",
+    },
+    position: "Tester",
+    summary:
+      "Me encargaba de realizar pruebas de calidad a la aplicación Meters NG, verificando que todas sus funciones operaran correctamente. Esto incluía asegurar que los usuarios pudieran tomar lecturas, completar validaciones y emitir facturas sin problemas, además de revisar las configuraciones realizadas desde el portal web para garantizar una experiencia fluida en campo.",
+  },
+];
+---
+
+<Section id="Experience" title="Experiencia laboral" icon={Briefcase}>
+  {
+    EXPERIENCES.reverse().map(({ id, company, period, position, summary }, index) => (
+      <article class="mb-12 flex" id={id}>
+        <div class="relative mr-6 no-print">
+          <span class="size-4 bg-[#82888f] rounded-full inline-block absolute left-2/4 -translate-x-1/2 translate-y-1/2 z-50" />
+          <span
+            class={`absolute inline-block w-1 bg-[#a0a6af] rounded-full left-2/4 -translate-x-1/2 ${index === EXPERIENCES.length - 1 ? "h-[110%]" : "h-[200%]"}`}
+          />
+        </div>
+
+        <div>
+          <div>
+            <div class="flex flex-row items-center justify-between">
+              <h4 class="text-lg font-semibold text-gray-800">{company}</h4>
+              <span class="text-base text-gray-700">
+                {period.start} - {period.end ? period.end : "Actual"}
+              </span>
+            </div>
+            <h5 class="text-base text-gray-700 -mt-1">{position}</h5>
+          </div>
+
+          <p class="text-base mt-2 text-gray-700">{summary}</p>
+        </div>
+      </article>
+    ))
+  }
+</Section>
+
+<style>
+  article {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+  }
+</style>
