@@ -24,6 +24,7 @@ import Question from "@icons/Question.astro";
         <div class="skill-title mb-10">
           <h5 class="text-lg mb-1 flex flex-row gap-3 items-center">
             <span class="no-print inline-block size-2 bg-gray-800 rounded-full" />
+            <span class="dot-skill hidden">•</span>
             {key}
           </h5>
           <div class="inline-flex gap-3 flex-wrap">
@@ -43,7 +44,7 @@ import Question from "@icons/Question.astro";
 <style>
   @media print {
 
-    .sklls-separator {
+    .sklls-separator, .dot-skill {
       display: inline;
     }
 

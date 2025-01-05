@@ -23,6 +23,8 @@ import JWT from "@icons/JWT.astro";
 import Sequelize from "@icons/Sequelize.astro";
 import PowerShell from "@icons/PowerShell.astro";
 import Expo from "@icons/Expo.astro";
+import Acode from "@icons/Acode.astro";
+import VSCode from "@icons/VSCode.astro";
 
 export const SKILLS: Skills = {
   Frontend: [
@@ -91,7 +93,16 @@ export const SKILLS: Skills = {
       icon: SQLite,
     },
   ],
-  Otros: [],
+  Otros: [
+    {
+      name: "Acode",
+      icon: Acode
+    },
+    {
+      name: "VSCode",
+      icon: VSCode
+    }
+  ],
   Complementos: [
     {
       name: "GitHub",
@@ -281,4 +292,21 @@ export const PROJECTS: Project[] = [
       },
     ],
   },
+  {
+    id: "python-games-from-acode",
+    title: "Juegos en python",
+    description: "Jugos realizados en python en la consola, realizados desde un editor para android.",
+    github: "https://github.com/Cristian-F-M/python-games-from-android",
+    working: false,
+    skills: [
+      {
+        name: "Python",
+        icon: Python
+      },
+      {
+        name: "Acode",
+        icon: Acode
+      }
+    ],
+  }
 ];
