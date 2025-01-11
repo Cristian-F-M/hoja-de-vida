@@ -308,5 +308,25 @@ export const PROJECTS: Project[] = [
         icon: Acode
       }
     ],
+  },
+  {
+    id: "bucaminas",
+    title: "Bucaminas",
+    description: "Juego de buscaminas realizado con JavaScript + CSS + HTML",
+    github: "https://github.com/Cristian-F-M/Buscaminas",
+    url: "https://buscaminas-rho.vercel.app/",
+    skills: [
+      {
+        name: "JavaScript",
+        icon: JavaScript
+      }, {
+        name: "CSS",
+        icon: Css
+      },
+      {
+        name: "HTML",
+        icon: Html
+      }
+    ]
   }
 ];
